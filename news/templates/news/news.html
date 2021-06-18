@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>News</title>
+    {% load static %}
+    <link rel="stylesheet" target="_blank" href="{% static 'css/base.css' %}">
+</head>
+<body>
+<h2>Hyper news</h2>
+
+<form action="/news/" method="get">
+    {% csrf_token %}
+    <label>Search: <input type="text" name="q"></label>
+    <input type="submit">
+</form>
+
+{% for key, values in all_news.items %}
+<h4>{{ key }}</h4>
+<ul>
+    {% for news in values %}
+    <li>
+        <a target="_blank" href="/news/{{ news.link }}/">{{ news.title }}</a>
+    </li>
+    {% endfor %}
+</ul>
+{% endfor %}
+
+<a target="_blank" href="/news/create/">Create News</a>
+</body>
+</html>
